@@ -25,4 +25,5 @@ export interface StockQuote {
 export interface StockApiResponse {
   stocks: StockQuote[];
   updatedAt: string;
+  isMock?: boolean;
 }
