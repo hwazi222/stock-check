@@ -78,6 +78,7 @@ export async function GET(request: NextRequest) {
       const response: StockApiResponse = {
         stocks: mockData,
         updatedAt: new Date().toISOString(),
+        isMock: true,
       };
       return NextResponse.json(response);
     }
@@ -93,6 +94,7 @@ export async function GET(request: NextRequest) {
     const response: StockApiResponse = {
       stocks: mockData,
       updatedAt: new Date().toISOString(),
+      isMock: true,
     };
     return NextResponse.json(response);
   }

@@ -10,11 +10,18 @@ function formatPrice(price: number | null, currency: string): string {
 
 function formatChange(change: number | null, currency: string): string {
   if (change === null) return "-";
-  const sign = change >= 0 ? "+" : "";
+  const sign = change >= 0 ? "+" : "-";
   if (currency === "KRW") {
     return sign + change.toLocaleString("ko-KR") + "원";
   }
-  return sign + "$" + Math.abs(change).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return (
+    sign +
+    "$" +
+    Math.abs(change).toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+  );
 }
 
 function formatPercent(percent: number | null): string {
@@ -59,9 +66,18 @@ export default function StockCard({ stock }: { stock: StockQuote }) {
     );
   }
 
+  const isNeutral = stock.change === null;
   const isPositive = (stock.change ?? 0) >= 0;
-  const colorClass = isPositive ? "text-green-400" : "text-red-400";
-  const bgColorClass = isPositive ? "bg-green-400/10" : "bg-red-400/10";
+  const colorClass = isNeutral
+    ? "text-gray-400"
+    : isPositive
+      ? "text-green-400"
+      : "text-red-400";
+  const bgColorClass = isNeutral
+    ? "bg-gray-400/10"
+    : isPositive
+      ? "bg-green-400/10"
+      : "bg-red-400/10";
 
   return (
     <div className="bg-gray-800 rounded-xl p-5 border border-gray-700 hover:border-gray-500 transition-colors">
